@@ -1,8 +1,10 @@
+import { IUser } from "./user";
+
 export interface IPost {
-    _id?: String; // Optional _id field
+    _id?: String;
     title: string;
     content: string;
-    author: string; // Reference to the User collection
+    author: IUser
 }
 
 

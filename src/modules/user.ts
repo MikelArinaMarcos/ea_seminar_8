@@ -1,4 +1,6 @@
-export interface User {
+import { IPost } from "./post";
+
+export interface IUser {
     _id?: String;
     name: {
         first_name: String;
@@ -8,6 +10,5 @@ export interface User {
     email: String;
     phone_number: String;
     gender: String;
-    posts?: String[]; // Array to store post IDs
-    reviews?: String[]; // Array to store post IDs
+    posts?: IPost[]; 
 }

@@ -1,18 +1,19 @@
 .user-details {
-    max-width: 400px;
+    max-width: 100%;
     margin: 0 auto;
-    text-align: center;
+    text-align: left;
 }
 
 .user-details input[type="text"] {
     width: 100%;
     padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    border: 2px solid #ecc903;
     border-radius: 5px;
     box-sizing: border-box;
     background-color: transparent;
-    color: #fff;
+    color: #ffffff;
 }
 
 .user-details p {

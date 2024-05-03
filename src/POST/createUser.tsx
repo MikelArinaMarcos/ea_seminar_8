@@ -1,7 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
-import { User } from "../modules/user";
-import './createUser.css';
+import { IUser } from "../modules/user";
+import '../App.css';
 
 interface CreateUserProps {
     updateUserList: () => void;
@@ -36,6 +36,9 @@ function CreateUser({ updateUserList }: CreateUserProps) {
             case 'email':
                 errorMessage = value.trim() === '' ? 'Email is required' : !isValidEmail(value) ? 'Invalid email format' : '';
                 break;
+            case 'phone_number':
+                errorMessage = value.trim() === '' ? 'Phone number is required' : !isValidPhoneNumber(value) ? 'Invalid phone number format' : '';
+                break;
             default:
                 break;
         }
@@ -50,11 +53,15 @@ function CreateUser({ updateUserList }: CreateUserProps) {
         return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
     };
 
+    const isValidPhoneNumber = (phoneNumber: string) => {
+        return /^(?:\+?\d{1,3}\s*)?\d(?:[\s-]*\d){9}$/.test(phoneNumber);
+    };
+
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const isFormValid = validateForm();
         if (isFormValid) {
-            const user: User = {
+            const user: IUser = {
                 name: {
                     first_name: first_name,
                     middle_name: middle_name,
@@ -86,6 +93,7 @@ function CreateUser({ updateUserList }: CreateUserProps) {
         validateField('middle_name', middle_name);
         validateField('last_name', last_name);
         validateField('email', email);
+        validateField('phone_number', phone_number);
 
         for (const error in errors) {
             if (errors[error] !== '') {
@@ -98,8 +106,9 @@ function CreateUser({ updateUserList }: CreateUserProps) {
     };
 
     return (
-        <div>
-            <form onSubmit={handleSubmit} className="create-user-form">
+        <div className="component">
+            <h2>Create User Component</h2>
+            <form onSubmit={handleSubmit} className="create-form">
                 <div>
                     <label>First Name</label>
                     <input type="text" value={first_name} onChange={(e) => { setFirstName(e.target.value); validateField('first_name', e.target.value); }} />
@@ -122,7 +131,8 @@ function CreateUser({ updateUserList }: CreateUserProps) {
                 </div>
                 <div>
                     <label>Phone Number</label>
-                    <input type="text" value={phone_number} onChange={(e) => setPhoneNumber(e.target.value)} />
+                    <input type="text" value={phone_number} onChange={(e) => { setPhoneNumber(e.target.value); validateField('phone_number', e.target.value) }} />
+                    {errors.phone_number && <span style={{ color: 'red' }}>{errors.phone_number}</span>}
                 </div>
                 <div>
                     <label>Gender</label>
